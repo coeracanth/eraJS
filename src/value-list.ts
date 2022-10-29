@@ -1,14 +1,14 @@
-import Value from "./value";
-import Int0DValue from "./value/int-0d";
-import Int1DValue from "./value/int-1d";
-import Int2DValue from "./value/int-2d";
-import Int3DValue from "./value/int-3d";
-import IntChar0DValue from "./value/int-char-0d";
-import IntChar1DValue from "./value/int-char-1d";
-import Str0DValue from "./value/str-0d";
-import Str1DValue from "./value/str-1d";
-import StrChar0DValue from "./value/str-char-0d";
-import StrChar1DValue from "./value/str-char-1d";
+import Value from "./value/index.ts";
+import Int0DValue from "./value/int-0d.ts";
+import Int1DValue from "./value/int-1d.ts";
+import Int2DValue from "./value/int-2d.ts";
+import Int3DValue from "./value/int-3d.ts";
+import IntChar0DValue from "./value/int-char-0d.ts";
+import IntChar1DValue from "./value/int-char-1d.ts";
+import Str0DValue from "./value/str-0d.ts";
+import Str1DValue from "./value/str-1d.ts";
+import StrChar0DValue from "./value/str-char-0d.ts";
+import StrChar1DValue from "./value/str-char-1d.ts";
 
 // [name, class, size, nameList]
 type ValueDefinition = [

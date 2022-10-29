@@ -1,8 +1,8 @@
-import Lazy from "../../lazy";
-import * as U from "../../parser/util";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Statement from "../index";
+import Lazy from "../../lazy.ts";
+import * as U from "../../parser/util.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
 
 export type Align = "LEFT" | "CENTER" | "RIGHT";
 

@@ -1,12 +1,12 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import Int1DValue from "../../value/int-1d";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import Int1DValue from "../../value/int-1d.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg1R1(X.expr);
 export default class ResetStain extends Statement {
@@ -22,7 +22,10 @@ export default class ResetStain extends Statement {
 		const num = await this.arg.get().reduce(vm);
 		assert.bigint(num, "1st Argument of RESET_STAIN should be an integer");
 
-		assert.cond(vm.characterList.length > num, `Character #${num} does not exist`);
+		assert.cond(
+			vm.characterList.length > num,
+			`Character #${num} does not exist`,
+		);
 		const character = vm.characterList[Number(num)];
 
 		character.getValue<Int1DValue>("STAIN").reset([0, 0, 2, 1, 8]);

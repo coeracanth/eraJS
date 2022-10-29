@@ -1,8 +1,11 @@
-import * as assert from "../../assert";
-import type VM from "../../vm";
-import type Expr from "../expr";
+import * as assert from "../../assert.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
 
-export default async function csvRelation(vm: VM, arg: Expr[]): Promise<number> {
+export default async function csvRelation(
+	vm: VM,
+	arg: Expr[],
+): Promise<number> {
 	const num = await arg[0].reduce(vm);
 	assert.bigint(num, "1st argument of CSVRELATION must be an integer");
 	const index = await arg[1].reduce(vm);

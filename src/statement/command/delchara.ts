@@ -1,11 +1,11 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.argNR0(X.expr);
 export default class DelChara extends Statement {
@@ -22,7 +22,10 @@ export default class DelChara extends Statement {
 		const indexList: bigint[] = [];
 		for (let i = 0; i < arg.length; ++i) {
 			const index = await arg[i].reduce(vm);
-			assert.bigint(index, `${i + 1}th argument of DELCHARA should be a number`);
+			assert.bigint(
+				index,
+				`${i + 1}th argument of DELCHARA should be a number`,
+			);
 			indexList.push(index);
 		}
 		indexList.sort();

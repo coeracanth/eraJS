@@ -1,7 +1,7 @@
-import * as assert from "../../assert";
-import * as E from "../../error";
-import type VM from "../../vm";
-import type Expr from "../expr";
+import * as assert from "../../assert.ts";
+import * as E from "../../error.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
 
 export default async function sqrt(vm: VM, arg: Expr[]): Promise<bigint> {
 	const value = await arg[0].reduce(vm);

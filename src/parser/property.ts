@@ -1,16 +1,16 @@
-import P from "parsimmon";
+import P from "../../deps/parsimmon.ts";
 
-import type Property from "../property";
-import Define from "../property/define";
-import Dim from "../property/dim";
-import LocalSize from "../property/localsize";
-import LocalSSize from "../property/localssize";
-import Method from "../property/method";
-import Order from "../property/order";
-import Single from "../property/single";
-import * as C from "./const";
-import * as X from "./expr";
-import * as U from "./util";
+import type Property from "../property/index.ts";
+import Define from "../property/define.ts";
+import Dim from "../property/dim.ts";
+import LocalSize from "../property/localsize.ts";
+import LocalSSize from "../property/localssize.ts";
+import Method from "../property/method.ts";
+import Order from "../property/order.ts";
+import Single from "../property/single.ts";
+import * as C from "./const.ts";
+import * as X from "./expr.ts";
+import * as U from "./util.ts";
 
 const parser = P.string("#").then(P.alt<Property>(
 	P.regex(/DEFINE/i).skip(C.WS1).then(P.seqMap(
@@ -24,8 +24,12 @@ const parser = P.string("#").then(P.alt<Property>(
 	P.regex(/SINGLE/i).map(() => new Single()),
 	P.regex(/FUNCTIONS/i).map(() => new Method()),
 	P.regex(/FUNCTION/i).map(() => new Method()),
-	P.regex(/LOCALSIZE/i).skip(C.WS1).then(X.expr).map((expr) => new LocalSize(expr)),
-	P.regex(/LOCALSSIZE/i).skip(C.WS1).then(X.expr).map((expr) => new LocalSSize(expr)),
+	P.regex(/LOCALSIZE/i).skip(C.WS1).then(X.expr).map((expr) =>
+		new LocalSize(expr)
+	),
+	P.regex(/LOCALSSIZE/i).skip(C.WS1).then(X.expr).map((expr) =>
+		new LocalSSize(expr)
+	),
 	P.regex(/DIM/i).skip(C.WS1).then(P.seqMap(
 		P.alt(
 			P.regex(/CONST/i).skip(C.WS1),
@@ -41,7 +45,8 @@ const parser = P.string("#").then(P.alt<Property>(
 			P.succeed(undefined),
 		),
 		P.string(",").fallback(null),
-		(prefix, [name, ...size], value) => new Dim(name, "number", prefix, size, value),
+		(prefix, [name, ...size], value) =>
+			new Dim(name, "number", prefix, size, value),
 	)),
 	P.regex(/DIMS/i).skip(C.WS1).then(P.seqMap(
 		P.alt(
@@ -58,7 +63,8 @@ const parser = P.string("#").then(P.alt<Property>(
 			P.succeed(undefined),
 		),
 		P.string(",").fallback(null),
-		(prefix, [name, ...size], value) => new Dim(name, "string", prefix, size, value),
+		(prefix, [name, ...size], value) =>
+			new Dim(name, "string", prefix, size, value),
 	)),
 ));
 

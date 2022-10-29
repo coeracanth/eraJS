@@ -1,6 +1,6 @@
-import * as U from "../../parser/util";
-import Slice from "../../slice";
-import Statement, {EraGenerator} from "../index";
+import * as U from "../../parser/util.ts";
+import Slice from "../../slice.ts";
+import Statement, { EraGenerator } from "../index.ts";
 
 const PARSER = U.arg0R0();
 export default class LoadGame extends Statement {

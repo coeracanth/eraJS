@@ -1,15 +1,15 @@
-import * as assert from "../../assert";
-import * as E from "../../error";
-import * as C from "../../parser/const";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Const from "../expr/const";
-import Variable from "../expr/variable";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as E from "../../error.ts";
+import * as C from "../../parser/const.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Const from "../expr/const.ts";
+import Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const DATA = /^DATA(\s+|$)/i;
 const DATAFORM = /^DATAFORM\s+/i;
@@ -18,7 +18,9 @@ const DATALIST = /^DATALIST$/i;
 const ENDLIST = /^ENDLIST$/i;
 const ENDDATA = /^ENDDATA$/i;
 const PARSER_ARG = U.arg1R1(X.variable);
-const PARSER_CONST = U.arg1R0(C.charSeq()).map((value) => new Const(value ?? ""));
+const PARSER_CONST = U.arg1R0(C.charSeq()).map((value) =>
+	new Const(value ?? "")
+);
 const PARSER_FORM = U.arg1R1(X.form[""]);
 export default class StrData extends Statement {
 	public static parse(lines: Slice[], from: number): [StrData, number] {
@@ -34,14 +36,23 @@ export default class StrData extends Statement {
 			if (DATA.test(current.content)) {
 				data.push(new Lazy(current.slice("DATA".length), PARSER_CONST));
 			} else if (DATAFORM.test(current.content)) {
-				data.push(new Lazy(current.slice("DATAFORM".length), PARSER_FORM));
+				data.push(
+					new Lazy(current.slice("DATAFORM".length), PARSER_FORM),
+				);
 			} else if (DATAFORM_EMPTY.test(current.content)) {
 				// TODO: Refactor this part
-				data.push(new Lazy(current.slice("DATAFORM".length), PARSER_CONST));
-			} else if (DATALIST.test(current.content) || ENDLIST.test(current.content)) {
+				data.push(
+					new Lazy(current.slice("DATAFORM".length), PARSER_CONST),
+				);
+			} else if (
+				DATALIST.test(current.content) || ENDLIST.test(current.content)
+			) {
 				// Do nothing
 			} else if (ENDDATA.test(current.content)) {
-				return [new StrData(lines[from].slice("STRADATA".length), data), index - from];
+				return [
+					new StrData(lines[from].slice("STRADATA".length), data),
+					index - from,
+				];
 			} else {
 				throw E.parser("Unexpected statement in STRDATA expression");
 			}

@@ -1,7 +1,7 @@
-import * as assert from "../../assert";
-import type {Leaf} from "../../value";
-import type VM from "../../vm";
-import type Expr from "../expr";
+import * as assert from "../../assert.ts";
+import type { Leaf } from "../../value/index.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
 
 export default async function groupMatch(vm: VM, arg: Expr[]): Promise<number> {
 	assert.cond(arg.length > 0, "1st argument of GROUPMATCH must exist");

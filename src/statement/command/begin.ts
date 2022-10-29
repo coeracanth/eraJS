@@ -1,8 +1,8 @@
-import Lazy from "../../lazy";
-import * as C from "../../parser/const";
-import * as U from "../../parser/util";
-import Slice from "../../slice";
-import Statement from "../index";
+import Lazy from "../../lazy.ts";
+import * as C from "../../parser/const.ts";
+import * as U from "../../parser/util.ts";
+import Slice from "../../slice.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg1R1(C.Identifier);
 export default class Begin extends Statement {
@@ -16,9 +16,9 @@ export default class Begin extends Statement {
 
 	// eslint-disable-next-line @typescript-eslint/require-await
 	public async *run() {
-		return <const>{
+		return {
 			type: "begin",
 			keyword: this.arg.get(),
-		};
+		} as const;
 	}
 }

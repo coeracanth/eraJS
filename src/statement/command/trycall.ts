@@ -1,8 +1,8 @@
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Statement from "../index";
-import Call from "./call";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
+import Call from "./call.ts";
 
 export default class TryCall extends Statement {
 	public arg: Call["arg"];

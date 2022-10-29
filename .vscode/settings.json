@@ -1,0 +1,6 @@
+{
+	"deno.enable": true,
+	"editor.insertSpaces": false,
+	"editor.defaultFormatter": "denoland.vscode-deno",
+	"deno.config": "deno.jsonc"
+}

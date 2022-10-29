@@ -1,11 +1,11 @@
-import P from "parsimmon";
+import P from "../../../deps/parsimmon.ts";
 
-import * as assert from "../../assert";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Variable from "../expr/variable";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const PARSER = P.eof;
 type Operator = "++" | "--";
@@ -26,13 +26,20 @@ export default class AssignPrefix extends Statement {
 		this.raw.get();
 
 		const dest = this.dest.getCell(vm);
-		assert.cond(dest.type === "number", "++/-- should be used with a numeric variable");
+		assert.cond(
+			dest.type === "number",
+			"++/-- should be used with a numeric variable",
+		);
 		const index = await this.dest.reduceIndex(vm);
 		const original = dest.get(vm, index) as bigint;
 
 		switch (this.operator) {
-			case "++": dest.set(vm, original + 1n, index); break;
-			case "--": dest.set(vm, original - 1n, index); break;
+			case "++":
+				dest.set(vm, original + 1n, index);
+				break;
+			case "--":
+				dest.set(vm, original - 1n, index);
+				break;
 		}
 
 		return null;

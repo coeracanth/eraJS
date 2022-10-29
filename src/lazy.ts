@@ -1,7 +1,7 @@
-import P from "parsimmon";
+import P from "../deps/parsimmon.ts";
 
-import * as U from "./parser/util";
-import Slice from "./slice";
+import * as U from "./parser/util.ts";
+import Slice from "./slice.ts";
 
 export default class Lazy<T> {
 	public raw: Slice;

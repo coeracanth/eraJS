@@ -1,11 +1,11 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type Expr from "../expr";
-import type VM from "../../vm";
-import Statement, {EraGenerator} from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type Expr from "../expr/index.ts";
+import type VM from "../../vm.ts";
+import Statement, { EraGenerator } from "../index.ts";
 
 const PARSER = U.arg2R2(X.expr, X.expr);
 export default class TWait extends Statement {

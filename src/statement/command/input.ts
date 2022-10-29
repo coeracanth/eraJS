@@ -1,10 +1,10 @@
-import * as assert from "../../assert";
-import * as C from "../../parser/const";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Statement, {EraGenerator} from "../index";
+import * as assert from "../../assert.ts";
+import * as C from "../../parser/const.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Statement, { EraGenerator } from "../index.ts";
 
 const PARSER = U.arg1R0(C.Int);
 export default class Input extends Statement {
@@ -20,7 +20,10 @@ export default class Input extends Statement {
 		const arg = this.arg.get();
 
 		const input = yield* vm.printer.input(true, arg != null);
-		assert.cond(input != null, "Input value for INPUT should be a valid number");
+		assert.cond(
+			input != null,
+			"Input value for INPUT should be a valid number",
+		);
 
 		let value = Number(input);
 		if (arg != null && input === "") {

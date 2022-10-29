@@ -1,11 +1,11 @@
-import * as assert from "../../assert";
-import * as E from "../../error";
-import type VM from "../../vm";
-import type {default as Value, Leaf} from "../index";
+import * as assert from "../../assert.ts";
+import * as E from "../../error.ts";
+import type VM from "../../vm.ts";
+import type { default as Value, Leaf } from "../index.ts";
 
 export default class RandValue implements Value<never> {
-	public type = <const>"number";
-	public name = <const>"RAND";
+	public type = "number" as const;
+	public name = "RAND" as const;
 	public value!: never;
 
 	public constructor() {
@@ -26,7 +26,12 @@ export default class RandValue implements Value<never> {
 		throw new Error("Cannot assign a value to RAND");
 	}
 
-	public rangeSet(_vm: VM, _value: Leaf, _index: number[], _range: [number, number]) {
+	public rangeSet(
+		_vm: VM,
+		_value: Leaf,
+		_index: number[],
+		_range: [number, number],
+	) {
 		throw new Error("Cannot assign a value to RAND");
 	}
 

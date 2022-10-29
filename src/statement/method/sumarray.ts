@@ -1,12 +1,15 @@
-import * as assert from "../../assert";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Variable from "../expr/variable";
+import * as assert from "../../assert.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Variable from "../expr/variable.ts";
 
 const LARGE_INT = 2n ** 60n;
 export default async function sumArray(vm: VM, arg: Expr[]): Promise<bigint> {
 	const target = arg[0];
-	assert.cond(target instanceof Variable, "1st argument of SUMARRAY should be a variable");
+	assert.cond(
+		target instanceof Variable,
+		"1st argument of SUMARRAY should be a variable",
+	);
 	assert.cond(
 		target.getCell(vm).type === "number",
 		"1st argument of SUMARRAY should be a number variable",

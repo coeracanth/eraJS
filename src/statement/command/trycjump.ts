@@ -1,17 +1,21 @@
-import * as E from "../../error";
-import {parseThunk} from "../../parser/erb";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type Thunk from "../../thunk";
-import type VM from "../../vm";
-import Statement from "../index";
-import Call from "./call";
-import Jump from "./jump";
+import * as E from "../../error.ts";
+import { parseThunk } from "../../parser/erb.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type Thunk from "../../thunk.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
+import Call from "./call.ts";
+import Jump from "./jump.ts";
 
 const CATCH = /^CATCH$/i;
 const ENDCATCH = /^ENDCATCH$/i;
 export default class TryCJump extends Statement {
-	public static parse(arg: Slice, lines: Slice[], from: number): [TryCJump, number] {
+	public static parse(
+		arg: Slice,
+		lines: Slice[],
+		from: number,
+	): [TryCJump, number] {
 		let index = from + 1;
 		if (lines.length <= index) {
 			throw E.parser("Unexpected end of thunk in TRYCJUMP expression");
@@ -20,7 +24,11 @@ export default class TryCJump extends Statement {
 		}
 		index += 1;
 
-		const [catchThunk, consumed] = parseThunk(lines, index, (l) => ENDCATCH.test(l));
+		const [catchThunk, consumed] = parseThunk(
+			lines,
+			index,
+			(l) => ENDCATCH.test(l),
+		);
 		index += consumed + 1;
 
 		return [new TryCJump(arg, catchThunk), index - from];

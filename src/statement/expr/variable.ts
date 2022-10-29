@@ -1,7 +1,7 @@
-import * as assert from "../../assert";
-import Value, {Leaf} from "../../value";
-import type VM from "../../vm";
-import type Expr from "./index";
+import * as assert from "../../assert.ts";
+import Value, { Leaf } from "../../value/index.ts";
+import type VM from "../../vm.ts";
+import type Expr from "./index.ts";
 
 export default class Variable implements Expr {
 	public name: string;

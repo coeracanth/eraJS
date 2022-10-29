@@ -1,16 +1,18 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import type Variable from "../expr/variable";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import type Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg5R3(X.variable, X.expr, X.expr, X.expr, X.expr);
 export default class ArrayShift extends Statement {
-	public arg: Lazy<[Variable, Expr, Expr, Expr | undefined, Expr | undefined]>;
+	public arg: Lazy<
+		[Variable, Expr, Expr, Expr | undefined, Expr | undefined]
+	>;
 
 	public constructor(raw: Slice) {
 		super(raw);

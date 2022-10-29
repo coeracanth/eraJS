@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
+import dayjs from "../../../deps/dayjs.ts";
 
-import * as U from "../../parser/util";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Statement from "../index";
+import * as U from "../../parser/util.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
 
 // 719162 is number of days from 0001-01-01 to 1970-01-01
 const UNIX_EPOCH = 719162 * 24 * 60 * 60;

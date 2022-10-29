@@ -1,11 +1,11 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg1R1(X.form[""]);
 export default class Throw extends Statement {
@@ -21,9 +21,9 @@ export default class Throw extends Statement {
 		const value = await this.arg.get().reduce(vm);
 		assert.string(value, "Argument of THROW must be a string");
 
-		return <const>{
+		return {
 			type: "throw",
 			value,
-		};
+		} as const;
 	}
 }

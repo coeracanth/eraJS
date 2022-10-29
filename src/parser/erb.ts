@@ -1,170 +1,173 @@
-import P from "parsimmon";
+import P from "../../deps/parsimmon.ts";
 
-import Fn from "../fn";
-import Property from "../property";
-import Slice from "../slice";
-import Statement from "../statement";
-import Assign from "../statement/assign";
-import AddChara from "../statement/command/addchara";
-import AddCopyChara from "../statement/command/addcopychara";
-import AddDefChara from "../statement/command/adddefchara";
-import AddVoidChara from "../statement/command/addvoidchara";
-import Alignment from "../statement/command/alignment";
-import ArrayRemove from "../statement/command/arrayremove";
-import ArrayShift from "../statement/command/arrayshift";
-import Bar from "../statement/command/bar";
-import Begin from "../statement/command/begin";
-import Break from "../statement/command/break";
-import Call from "../statement/command/call";
-import CallF from "../statement/command/callf";
-import CallForm from "../statement/command/callform";
-import CallFormF from "../statement/command/callformf";
-import CallTrain from "../statement/command/calltrain";
-import Case from "../statement/command/case";
-import CbgClear from "../statement/command/cbgclear";
-import CbgClearButton from "../statement/command/cbgclearbutton";
-import CbgRemoveBmap from "../statement/command/cbgremovebmap";
-import ChkData from "../statement/command/chkdata";
-import ChkFont from "../statement/command/chkfont";
-import ClearBit from "../statement/command/clearbit";
-import ClearLine from "../statement/command/clearline";
-import ClearTextBox from "../statement/command/cleartextbox";
-import Continue from "../statement/command/continue";
-import CopyChara from "../statement/command/copychara";
-import CUpCheck from "../statement/command/cupcheck";
-import CurrentAlign from "../statement/command/currentalign";
-import CurrentRedraw from "../statement/command/currentredraw";
-import CustomDrawLine from "../statement/command/customdrawline";
-import CVarSet from "../statement/command/cvarset";
-import DebugClear from "../statement/command/debugclear";
-import DebugPrint from "../statement/command/debugprint";
-import DebugPrintForm from "../statement/command/debugprintform";
-import DelAllChara from "../statement/command/delallchara";
-import DelChara from "../statement/command/delchara";
-import DelData from "../statement/command/deldata";
-import DoWhile from "../statement/command/dowhile";
-import DrawLine from "../statement/command/drawline";
-import DrawLineForm from "../statement/command/drawlineform";
-import DumpRand from "../statement/command/dumprand";
-import EncodeToUni from "../statement/command/encodetouni";
-import Escape from "../statement/command/escape";
-import FontBold from "../statement/command/fontbold";
-import FontItalic from "../statement/command/fontitalic";
-import FontRegular from "../statement/command/fontregular";
-import FontStyle from "../statement/command/fontstyle";
-import For from "../statement/command/for";
-import ForceWait from "../statement/command/forcewait";
-import GetExpLv from "../statement/command/getexplv";
-import GetFont from "../statement/command/getfont";
-import GetMillisecond from "../statement/command/getmillisecond";
-import GetPalamLv from "../statement/command/getpalamlv";
-import GetSecond from "../statement/command/getsecond";
-import GetStyle from "../statement/command/getstyle";
-import GetTime from "../statement/command/gettime";
-import Goto from "../statement/command/goto";
-import GotoForm from "../statement/command/gotoform";
-import If from "../statement/command/if";
-import Input from "../statement/command/input";
-import InputS from "../statement/command/inputs";
-import InitRand from "../statement/command/initrand";
-import InvertBit from "../statement/command/invertbit";
-import IsActive from "../statement/command/isactive";
-import IsSkip from "../statement/command/isskip";
-import Jump from "../statement/command/jump";
-import JumpForm from "../statement/command/jumpform";
-import LoadData from "../statement/command/loaddata";
-import LoadGame from "../statement/command/loadgame";
-import LoadGlobal from "../statement/command/loadglobal";
-import Method from "../statement/command/method";
-import MouseSkip from "../statement/command/mouseskip";
-import MouseX from "../statement/command/mousex";
-import MouseY from "../statement/command/mousey";
-import OneInput from "../statement/command/oneinput";
-import OneInputS from "../statement/command/oneinputs";
-import OutputLog from "../statement/command/outputlog";
-import PickupChara from "../statement/command/pickupchara";
-import Print from "../statement/command/print";
-import PrintButton from "../statement/command/printbutton";
-import PrintC from "../statement/command/printc";
-import PrintCPerLine from "../statement/command/printcperline";
-import PrintData from "../statement/command/printdata";
-import PrintForm from "../statement/command/printform";
-import PrintFormC from "../statement/command/printformc";
-import PrintFormS from "../statement/command/printforms";
-import PrintPalam from "../statement/command/print_palam";
-import PrintPlain from "../statement/command/printplain";
-import PrintS from "../statement/command/prints";
-import PrintShopItem from "../statement/command/print_shopitem";
-import PrintV from "../statement/command/printv";
-import PutForm from "../statement/command/putform";
-import Quit from "../statement/command/quit";
-import Randomize from "../statement/command/randomize";
-import Redraw from "../statement/command/redraw";
-import Repeat from "../statement/command/repeat";
-import ResetBgColor from "../statement/command/resetbgcolor";
-import ResetColor from "../statement/command/resetcolor";
-import ResetData from "../statement/command/resetdata";
-import ResetGlobal from "../statement/command/resetglobal";
-import ResetStain from "../statement/command/reset_stain";
-import Restart from "../statement/command/restart";
-import Return from "../statement/command/return";
-import ReturnF from "../statement/command/returnf";
-import ReuseLastLine from "../statement/command/reuselastline";
-import SaveData from "../statement/command/savedata";
-import SaveGame from "../statement/command/savegame";
-import SaveGlobal from "../statement/command/saveglobal";
-import SetBgColor from "../statement/command/setbgcolor";
-import SetBgColorByName from "../statement/command/setbgcolorbyname";
-import SetBit from "../statement/command/setbit";
-import SetColor from "../statement/command/setcolor";
-import SetColorByName from "../statement/command/setcolorbyname";
-import SetFont from "../statement/command/setfont";
-import SkipDisp from "../statement/command/skipdisp";
-import SortChara from "../statement/command/sortchara";
-import Split from "../statement/command/split";
-import StopCallTrain from "../statement/command/stopcalltrain";
-import StrData from "../statement/command/strdata";
-import StrFind from "../statement/command/strfind";
-import StrFindU from "../statement/command/strfindu";
-import StrLen from "../statement/command/strlen";
-import StrLenForm from "../statement/command/strlenform";
-import StrLenFormU from "../statement/command/strlenformu";
-import StrLenU from "../statement/command/strlenu";
-import Substring from "../statement/command/substring";
-import SubstringU from "../statement/command/substringu";
-import Swap from "../statement/command/swap";
-import SwapChara from "../statement/command/swapchara";
-import Throw from "../statement/command/throw";
-import Times from "../statement/command/times";
-import TInput from "../statement/command/tinput";
-import TInputS from "../statement/command/tinputs";
-import TOneInput from "../statement/command/toneinput";
-import TOneInputS from "../statement/command/toneinputs";
-import TryCall from "../statement/command/trycall";
-import TryCallForm from "../statement/command/trycallform";
-import TryCCall from "../statement/command/tryccall";
-import TryCCallForm from "../statement/command/tryccallform";
-import TryCGoto from "../statement/command/trycgoto";
-import TryCGotoForm from "../statement/command/trycgotoform";
-import TryCJump from "../statement/command/trycjump";
-import TryCJumpForm from "../statement/command/trycjumpform";
-import TryGoto from "../statement/command/trygoto";
-import TryGotoForm from "../statement/command/trygotoform";
-import TryJump from "../statement/command/tryjump";
-import TryJumpForm from "../statement/command/tryjumpform";
-import UpCheck from "../statement/command/upcheck";
-import VarSet from "../statement/command/varset";
-import Wait from "../statement/command/wait";
-import WaitAnyKey from "../statement/command/waitanykey";
-import While from "../statement/command/while";
-import Thunk from "../thunk";
-import * as C from "./const";
-import * as X from "./expr";
-import {normalize, preprocess, toLines} from "./preprocess";
-import prop from "./property";
-import * as U from "./util";
+import Fn from "../fn.ts";
+import Property from "../property/index.ts";
+import Slice from "../slice.ts";
+import Statement from "../statement/index.ts";
+import Assign from "../statement/assign/index.ts";
+import AddChara from "../statement/command/addchara.ts";
+import AddCopyChara from "../statement/command/addcopychara.ts";
+import AddDefChara from "../statement/command/adddefchara.ts";
+import AddVoidChara from "../statement/command/addvoidchara.ts";
+import Alignment from "../statement/command/alignment.ts";
+import ArrayRemove from "../statement/command/arrayremove.ts";
+import ArrayShift from "../statement/command/arrayshift.ts";
+import Bar from "../statement/command/bar.ts";
+import Begin from "../statement/command/begin.ts";
+import Break from "../statement/command/break.ts";
+import Call from "../statement/command/call.ts";
+import CallF from "../statement/command/callf.ts";
+import CallForm from "../statement/command/callform.ts";
+import CallFormF from "../statement/command/callformf.ts";
+import CallTrain from "../statement/command/calltrain.ts";
+import Case from "../statement/command/case.ts";
+import CbgClear from "../statement/command/cbgclear.ts";
+import CbgClearButton from "../statement/command/cbgclearbutton.ts";
+import CbgRemoveBmap from "../statement/command/cbgremovebmap.ts";
+import ChkData from "../statement/command/chkdata.ts";
+import ChkFont from "../statement/command/chkfont.ts";
+import ClearBit from "../statement/command/clearbit.ts";
+import ClearLine from "../statement/command/clearline.ts";
+import ClearTextBox from "../statement/command/cleartextbox.ts";
+import Continue from "../statement/command/continue.ts";
+import CopyChara from "../statement/command/copychara.ts";
+import CUpCheck from "../statement/command/cupcheck.ts";
+import CurrentAlign from "../statement/command/currentalign.ts";
+import CurrentRedraw from "../statement/command/currentredraw.ts";
+import CustomDrawLine from "../statement/command/customdrawline.ts";
+import CVarSet from "../statement/command/cvarset.ts";
+import DebugClear from "../statement/command/debugclear.ts";
+import DebugPrint from "../statement/command/debugprint.ts";
+import DebugPrintForm from "../statement/command/debugprintform.ts";
+import DelAllChara from "../statement/command/delallchara.ts";
+import DelChara from "../statement/command/delchara.ts";
+import DelData from "../statement/command/deldata.ts";
+import DoWhile from "../statement/command/dowhile.ts";
+import DrawLine from "../statement/command/drawline.ts";
+import DrawLineForm from "../statement/command/drawlineform.ts";
+import DumpRand from "../statement/command/dumprand.ts";
+import EncodeToUni from "../statement/command/encodetouni.ts";
+import Escape from "../statement/command/escape.ts";
+import FontBold from "../statement/command/fontbold.ts";
+import FontItalic from "../statement/command/fontitalic.ts";
+import FontRegular from "../statement/command/fontregular.ts";
+import FontStyle from "../statement/command/fontstyle.ts";
+import For from "../statement/command/for.ts";
+import ForceWait from "../statement/command/forcewait.ts";
+import GetExpLv from "../statement/command/getexplv.ts";
+import GetFont from "../statement/command/getfont.ts";
+import GetMillisecond from "../statement/command/getmillisecond.ts";
+import GetPalamLv from "../statement/command/getpalamlv.ts";
+import GetSecond from "../statement/command/getsecond.ts";
+import GetStyle from "../statement/command/getstyle.ts";
+import GetTime from "../statement/command/gettime.ts";
+import Goto from "../statement/command/goto.ts";
+import GotoForm from "../statement/command/gotoform.ts";
+import If from "../statement/command/if.ts";
+import Input from "../statement/command/input.ts";
+import InputS from "../statement/command/inputs.ts";
+import InitRand from "../statement/command/initrand.ts";
+import InvertBit from "../statement/command/invertbit.ts";
+import IsActive from "../statement/command/isactive.ts";
+import IsSkip from "../statement/command/isskip.ts";
+import Jump from "../statement/command/jump.ts";
+import JumpForm from "../statement/command/jumpform.ts";
+import LoadData from "../statement/command/loaddata.ts";
+import LoadGame from "../statement/command/loadgame.ts";
+import LoadGlobal from "../statement/command/loadglobal.ts";
+import Method from "../statement/command/method.ts";
+import MouseSkip from "../statement/command/mouseskip.ts";
+import MouseX from "../statement/command/mousex.ts";
+import MouseY from "../statement/command/mousey.ts";
+import OneInput from "../statement/command/oneinput.ts";
+import OneInputS from "../statement/command/oneinputs.ts";
+import OutputLog from "../statement/command/outputlog.ts";
+import PickupChara from "../statement/command/pickupchara.ts";
+import Print from "../statement/command/print.ts";
+import PrintButton from "../statement/command/printbutton.ts";
+import PrintC from "../statement/command/printc.ts";
+import PrintCPerLine from "../statement/command/printcperline.ts";
+import PrintData from "../statement/command/printdata.ts";
+import PrintForm from "../statement/command/printform.ts";
+import PrintFormC from "../statement/command/printformc.ts";
+import PrintFormS from "../statement/command/printforms.ts";
+import PrintPalam from "../statement/command/print_palam.ts";
+import PrintPlain from "../statement/command/printplain.ts";
+import PrintS from "../statement/command/prints.ts";
+import PrintShopItem from "../statement/command/print_shopitem.ts";
+import PrintV from "../statement/command/printv.ts";
+import PutForm from "../statement/command/putform.ts";
+import Quit from "../statement/command/quit.ts";
+import Randomize from "../statement/command/randomize.ts";
+import Redraw from "../statement/command/redraw.ts";
+import Repeat from "../statement/command/repeat.ts";
+import ResetBgColor from "../statement/command/resetbgcolor.ts";
+import ResetColor from "../statement/command/resetcolor.ts";
+import ResetData from "../statement/command/resetdata.ts";
+import ResetGlobal from "../statement/command/resetglobal.ts";
+import ResetStain from "../statement/command/reset_stain.ts";
+import Restart from "../statement/command/restart.ts";
+import Return from "../statement/command/return.ts";
+import ReturnF from "../statement/command/returnf.ts";
+import ReuseLastLine from "../statement/command/reuselastline.ts";
+import SaveData from "../statement/command/savedata.ts";
+import SaveGame from "../statement/command/savegame.ts";
+import SaveGlobal from "../statement/command/saveglobal.ts";
+import SetBgColor from "../statement/command/setbgcolor.ts";
+import SetBgColorByName from "../statement/command/setbgcolorbyname.ts";
+import SetBit from "../statement/command/setbit.ts";
+import SetColor from "../statement/command/setcolor.ts";
+import SetColorByName from "../statement/command/setcolorbyname.ts";
+import SetFont from "../statement/command/setfont.ts";
+import SkipDisp from "../statement/command/skipdisp.ts";
+import SortChara from "../statement/command/sortchara.ts";
+import Split from "../statement/command/split.ts";
+import StopCallTrain from "../statement/command/stopcalltrain.ts";
+import StrData from "../statement/command/strdata.ts";
+import StrFind from "../statement/command/strfind.ts";
+import StrFindU from "../statement/command/strfindu.ts";
+import StrLen from "../statement/command/strlen.ts";
+import StrLenForm from "../statement/command/strlenform.ts";
+import StrLenFormU from "../statement/command/strlenformu.ts";
+import StrLenU from "../statement/command/strlenu.ts";
+import Substring from "../statement/command/substring.ts";
+import SubstringU from "../statement/command/substringu.ts";
+import Swap from "../statement/command/swap.ts";
+import SwapChara from "../statement/command/swapchara.ts";
+import Throw from "../statement/command/throw.ts";
+import Times from "../statement/command/times.ts";
+import TInput from "../statement/command/tinput.ts";
+import TInputS from "../statement/command/tinputs.ts";
+import TOneInput from "../statement/command/toneinput.ts";
+import TOneInputS from "../statement/command/toneinputs.ts";
+import TryCall from "../statement/command/trycall.ts";
+import TryCallForm from "../statement/command/trycallform.ts";
+import TryCCall from "../statement/command/tryccall.ts";
+import TryCCallForm from "../statement/command/tryccallform.ts";
+import TryCGoto from "../statement/command/trycgoto.ts";
+import TryCGotoForm from "../statement/command/trycgotoform.ts";
+import TryCJump from "../statement/command/trycjump.ts";
+import TryCJumpForm from "../statement/command/trycjumpform.ts";
+import TryGoto from "../statement/command/trygoto.ts";
+import TryGotoForm from "../statement/command/trygotoform.ts";
+import TryJump from "../statement/command/tryjump.ts";
+import TryJumpForm from "../statement/command/tryjumpform.ts";
+import UpCheck from "../statement/command/upcheck.ts";
+import VarSet from "../statement/command/varset.ts";
+import Wait from "../statement/command/wait.ts";
+import WaitAnyKey from "../statement/command/waitanykey.ts";
+import While from "../statement/command/while.ts";
+import Thunk from "../thunk.ts";
+import * as C from "./const.ts";
+import * as X from "./expr.ts";
+import { normalize, preprocess, toLines } from "./preprocess.ts";
+import prop from "./property.ts";
+import * as U from "./util.ts";
 
-export default function parseERB(files: Map<string, string>, macros: Set<string>): Fn[] {
+export default function parseERB(
+	files: Map<string, string>,
+	macros: Set<string>,
+): Fn[] {
 	const result: Fn[] = [];
 	for (const [name, content] of files) {
 		const normalized = normalize(content);
@@ -207,20 +210,26 @@ function parseFn(lines: Slice[], from: number): [Fn, number] {
 		index += 1;
 	}
 
-	const argParser = U.sepBy0(",", P.seq(
-		X.variable,
+	const argParser = U.sepBy0(
+		",",
+		P.seq(
+			X.variable,
+			P.alt(
+				P.string("=").trim(C.WS0).then(C.Int).map((val) => BigInt(val)),
+				P.string("=").trim(C.WS0).then(C.Str),
+				P.string("=").trim(C.WS0).then(X.variable),
+				P.succeed(null),
+			),
+		),
+	);
+	const defParser = P.string("@").then(P.seq(
+		C.Identifier.skip(C.WS0),
 		P.alt(
-			P.string("=").trim(C.WS0).then(C.Int).map((val) => BigInt(val)),
-			P.string("=").trim(C.WS0).then(C.Str),
-			P.string("=").trim(C.WS0).then(X.variable),
-			P.succeed(null),
+			U.wrap("(", ")", argParser),
+			P.string(",").trim(C.WS0).then(argParser),
+			P.succeed([]),
 		),
 	));
-	const defParser = P.string("@").then(P.seq(C.Identifier.skip(C.WS0), P.alt(
-		U.wrap("(", ")", argParser),
-		P.string(",").trim(C.WS0).then(argParser),
-		P.succeed([]),
-	)));
 
 	const definition = U.tryParse(defParser, lines[defIndex]);
 
@@ -245,7 +254,6 @@ export function parseThunk(
 	let index = from;
 	while (index < lines.length) {
 		const current = lines[index];
-		// eslint-disable-next-line @typescript-eslint/prefer-optional-chain
 		if (until != null && until(current.content)) {
 			break;
 		}
@@ -263,13 +271,13 @@ export function parseThunk(
 }
 
 // eslint-disable-next-line no-useless-escape
-const ID_REGEX = /^[^\+\-\*\/\%\=\!\<\>\|\&\^\~\?\#\(\)\{\}\[\]\.\,\:\$\\\'\"\@\;\s]+/;
+const ID_REGEX =
+	/^[^\+\-\*\/\%\=\!\<\>\|\&\^\~\?\#\(\)\{\}\[\]\.\,\:\$\\\'\"\@\;\s]+/;
 function parseStatement(lines: Slice[], index: number): [Statement, number] {
 	const current = lines[index];
 	const match = ID_REGEX.exec(current.content);
 	if (match != null) {
 		const IDENTIFIER = match[0].toUpperCase();
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		if (commandParser[IDENTIFIER] != null) {
 			const arg = current.slice(match[0].length);
 			return commandParser[IDENTIFIER](arg, lines, index);
@@ -279,7 +287,11 @@ function parseStatement(lines: Slice[], index: number): [Statement, number] {
 	return [new Assign(current), 1];
 }
 
-type CommandParser = (arg: Slice, lines: Slice[], from: number) => [Statement, number];
+type CommandParser = (
+	arg: Slice,
+	lines: Slice[],
+	from: number,
+) => [Statement, number];
 const commandParser: Record<string, CommandParser> = {
 	PRINT: (arg) => [new Print([], arg), 1],
 	PRINTL: (arg) => [new Print(["L"], arg), 1],
@@ -537,14 +549,21 @@ const commandParser: Record<string, CommandParser> = {
 	PRINTDATAL: (_arg, lines, from) => PrintData.parse(["L"], lines, from),
 	PRINTDATAW: (_arg, lines, from) => PrintData.parse(["W"], lines, from),
 	PRINTDATAK: (_arg, lines, from) => PrintData.parse(["K"], lines, from),
-	PRINTDATAKL: (_arg, lines, from) => PrintData.parse(["K", "L"], lines, from),
-	PRINTDATAKW: (_arg, lines, from) => PrintData.parse(["K", "W"], lines, from),
+	PRINTDATAKL: (_arg, lines, from) =>
+		PrintData.parse(["K", "L"], lines, from),
+	PRINTDATAKW: (_arg, lines, from) =>
+		PrintData.parse(["K", "W"], lines, from),
 	PRINTDATAD: (_arg, lines, from) => PrintData.parse(["D"], lines, from),
-	PRINTDATADL: (_arg, lines, from) => PrintData.parse(["D", "L"], lines, from),
-	PRINTDATADW: (_arg, lines, from) => PrintData.parse(["D", "W"], lines, from),
+	PRINTDATADL: (_arg, lines, from) =>
+		PrintData.parse(["D", "L"], lines, from),
+	PRINTDATADW: (_arg, lines, from) =>
+		PrintData.parse(["D", "W"], lines, from),
 	SIF: (arg, lines, from) => {
 		const [statement, consumed] = parseStatement(lines, from + 1);
-		return [new If([[arg, new Thunk([statement])]], new Thunk([])), consumed + 1];
+		return [
+			new If([[arg, new Thunk([statement])]], new Thunk([])),
+			consumed + 1,
+		];
 	},
 	IF: (_arg, lines, from) => If.parse(lines, from),
 	SELECTCASE: (arg, lines, from) => Case.parse(arg, lines, from),

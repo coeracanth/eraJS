@@ -1,12 +1,12 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import type Variable from "../expr/variable";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import type Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.argNR1(X.variable, X.expr);
 export default class SetBit extends Statement {
@@ -27,7 +27,10 @@ export default class SetBit extends Statement {
 		const bitList: bigint[] = [];
 		for (let i = 0; i < bitExpr.length; ++i) {
 			const bit = await bitExpr[i].reduce(vm);
-			assert.bigint(bit, `${i + 2}th argument of INVERTBIT must be a number`);
+			assert.bigint(
+				bit,
+				`${i + 2}th argument of INVERTBIT must be a number`,
+			);
 			bitList.push(bit);
 		}
 

@@ -1,9 +1,9 @@
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Statement from "../index";
-import Call from "./call";
-import Jump from "./jump";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
+import Call from "./call.ts";
+import Jump from "./jump.ts";
 
 export default class TryJump extends Statement {
 	public arg: Jump["arg"];

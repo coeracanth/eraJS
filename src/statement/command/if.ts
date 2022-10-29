@@ -1,14 +1,14 @@
-import * as assert from "../../assert";
-import * as E from "../../error";
-import {parseThunk} from "../../parser/erb";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import Thunk from "../../thunk";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as E from "../../error.ts";
+import { parseThunk } from "../../parser/erb.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import Thunk from "../../thunk.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Statement from "../index.ts";
 
 const IF = /^IF\s+/i;
 const ELSEIF = /^ELSEIF\s+/i;
@@ -74,7 +74,7 @@ export default class If extends Statement {
 
 	public async *run(vm: VM, label?: string) {
 		if (label != null) {
-			for (const [,, thunk] of this.ifThunk) {
+			for (const [, , thunk] of this.ifThunk) {
 				if (thunk.labelMap.has(label)) {
 					return yield* thunk.run(vm, label);
 				}

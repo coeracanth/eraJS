@@ -1,4 +1,4 @@
-import Slice from "./slice";
+import Slice from "./slice.ts";
 
 export default class EraJSError extends Error {
 	public line: Slice;
@@ -20,7 +20,9 @@ export function notFound(type: string, name: string) {
 }
 
 export function invalidIndex(type: string, name: string, index: number[]) {
-	return new Error(`${type} variable ${name} cannot be indexed by [${index.join(",")}]`);
+	return new Error(
+		`${type} variable ${name} cannot be indexed by [${index.join(",")}]`,
+	);
 }
 
 export function notImpl(target: string) {

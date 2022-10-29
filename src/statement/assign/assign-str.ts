@@ -1,11 +1,11 @@
-import Lazy from "../../lazy";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Variable from "../expr/variable";
-import Statement from "../index";
+import Lazy from "../../lazy.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.sepBy0(",", X.expr);
 export default class AssignStr extends Statement {

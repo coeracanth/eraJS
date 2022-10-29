@@ -1,15 +1,15 @@
-import * as assert from "../../assert";
-import * as U from "../../parser/util";
-import {savefile, GlobalSave} from "../../savedata";
-import Slice from "../../slice";
-import Int0DValue from "../../value/int-0d";
-import Int1DValue from "../../value/int-1d";
-import Int2DValue from "../../value/int-2d";
-import Int3DValue from "../../value/int-3d";
-import Str0DValue from "../../value/str-0d";
-import Str1DValue from "../../value/str-1d";
-import type VM from "../../vm";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as U from "../../parser/util.ts";
+import { GlobalSave, savefile } from "../../savedata.ts";
+import Slice from "../../slice.ts";
+import Int0DValue from "../../value/int-0d.ts";
+import Int1DValue from "../../value/int-1d.ts";
+import Int2DValue from "../../value/int-2d.ts";
+import Int3DValue from "../../value/int-3d.ts";
+import Str0DValue from "../../value/str-0d.ts";
+import Str1DValue from "../../value/str-1d.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg0R0();
 export default class LoadGlobal extends Statement {
@@ -43,7 +43,11 @@ export default class LoadGlobal extends Statement {
 					cell.reset(value.map((v0) => v0.map((v1) => BigInt(v1))));
 				} else if (cell instanceof Int3DValue) {
 					assert.strArray3D(value, "");
-					cell.reset(value.map((v0) => v0.map((v1) => v1.map((v2) => BigInt(v2)))));
+					cell.reset(
+						value.map((v0) =>
+							v0.map((v1) => v1.map((v2) => BigInt(v2)))
+						),
+					);
 				} else if (cell instanceof Str0DValue) {
 					assert.string(value, "");
 					cell.reset(value);

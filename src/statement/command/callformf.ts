@@ -1,12 +1,12 @@
-import * as assert from "../../assert";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Form from "../expr/form";
-import Statement from "../index";
-import CallF from "./callf";
-import CallForm from "./callform";
+import * as assert from "../../assert.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Form from "../expr/form.ts";
+import Statement from "../index.ts";
+import CallF from "./callf.ts";
+import CallForm from "./callform.ts";
 
 export default class CallFormF extends Statement {
 	public arg: Lazy<[Form, Array<Expr | undefined>]>;

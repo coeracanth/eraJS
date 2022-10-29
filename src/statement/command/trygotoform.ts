@@ -1,11 +1,11 @@
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Form from "../expr/form";
-import Statement from "../index";
-import Goto from "./goto";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Form from "../expr/form.ts";
+import Statement from "../index.ts";
+import Goto from "./goto.ts";
 
 const PARSER = U.arg1R1(X.form[""]);
 export default class TryGotoForm extends Statement {

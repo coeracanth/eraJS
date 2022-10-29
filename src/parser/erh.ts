@@ -1,9 +1,12 @@
-import Property from "../property";
-import prop from "./property";
-import {normalize, preprocess, toLines} from "./preprocess";
-import * as U from "./util";
+import Property from "../property/index.ts";
+import prop from "./property.ts";
+import { normalize, preprocess, toLines } from "./preprocess.ts";
+import * as U from "./util.ts";
 
-export default function parseERH(files: Map<string, string>, macros: Set<string>): Property[] {
+export default function parseERH(
+	files: Map<string, string>,
+	macros: Set<string>,
+): Property[] {
 	const result: Property[] = [];
 
 	for (const [name, content] of files) {

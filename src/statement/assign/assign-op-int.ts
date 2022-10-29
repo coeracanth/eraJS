@@ -1,11 +1,11 @@
-import * as assert from "../../assert";
-import Lazy from "../../lazy";
-import * as X from "../../parser/expr";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Expr from "../expr";
-import Variable from "../expr/variable";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import Lazy from "../../lazy.ts";
+import * as X from "../../parser/expr.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Expr from "../expr/index.ts";
+import Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const PARSER = X.expr;
 type Operator = "*=" | "/=" | "%=" | "+=" | "-=" | "&=" | "|=" | "^=";
@@ -27,20 +27,39 @@ export default class AssignOpInt extends Statement {
 		const index = await this.dest.reduceIndex(vm);
 		const original = dest.get(vm, index) as bigint;
 		const value = await this.arg.get().reduce(vm);
-		assert.bigint(value, `Right operand of ${this.operator} should be a number`);
+		assert.bigint(
+			value,
+			`Right operand of ${this.operator} should be a number`,
+		);
 
 		switch (this.operator) {
-			case "*=": dest.set(vm, original * value, index); break;
-			case "/=": dest.set(vm, original / value, index); break;
-			case "%=": dest.set(vm, original % value, index); break;
-			case "+=": dest.set(vm, original + value, index); break;
-			case "-=": dest.set(vm, original - value, index); break;
+			case "*=":
+				dest.set(vm, original * value, index);
+				break;
+			case "/=":
+				dest.set(vm, original / value, index);
+				break;
+			case "%=":
+				dest.set(vm, original % value, index);
+				break;
+			case "+=":
+				dest.set(vm, original + value, index);
+				break;
+			case "-=":
+				dest.set(vm, original - value, index);
+				break;
 			// eslint-disable-next-line no-bitwise
-			case "&=": dest.set(vm, original & value, index); break;
+			case "&=":
+				dest.set(vm, original & value, index);
+				break;
 			// eslint-disable-next-line no-bitwise
-			case "|=": dest.set(vm, original | value, index); break;
+			case "|=":
+				dest.set(vm, original | value, index);
+				break;
 			// eslint-disable-next-line no-bitwise
-			case "^=": dest.set(vm, original ^ value, index); break;
+			case "^=":
+				dest.set(vm, original ^ value, index);
+				break;
 		}
 
 		return null;

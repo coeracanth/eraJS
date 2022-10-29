@@ -1,11 +1,11 @@
-import * as E from "../../error";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Form from "../expr/form";
-import Statement from "../index";
+import * as E from "../../error.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Form from "../expr/form.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg1R1(X.form[""]);
 export default class GotoForm extends Statement {
@@ -26,9 +26,9 @@ export default class GotoForm extends Statement {
 			throw E.notFound("Label", target);
 		}
 
-		return <const>{
+		return {
 			type: "goto",
 			label: target,
-		};
+		} as const;
 	}
 }

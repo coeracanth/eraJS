@@ -1,7 +1,7 @@
-import * as E from "../../error";
-import * as U from "../../parser/util";
-import Slice from "../../slice";
-import Statement from "../index";
+import * as E from "../../error.ts";
+import * as U from "../../parser/util.ts";
+import Slice from "../../slice.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg0R0();
 export default class ClearTextBox extends Statement {

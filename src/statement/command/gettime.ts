@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
+import dayjs from "../../../deps/dayjs.ts";
 
-import * as U from "../../parser/util";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Statement from "../index";
+import * as U from "../../parser/util.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg0R0();
 export default class GetTime extends Statement {
@@ -17,8 +17,14 @@ export default class GetTime extends Statement {
 	public async *run(vm: VM) {
 		const time = dayjs(vm.external.getTime());
 
-		vm.getValue("RESULT").set(vm, BigInt(parseInt(time.format("YYYYMMDDHHmmssSSS"))), [0]);
-		vm.getValue("RESULTS").set(vm, time.format("YYYY年MM月DD日 HH:mm:ss"), [0]);
+		vm.getValue("RESULT").set(
+			vm,
+			BigInt(parseInt(time.format("YYYYMMDDHHmmssSSS"))),
+			[0],
+		);
+		vm.getValue("RESULTS").set(vm, time.format("YYYY年MM月DD日 HH:mm:ss"), [
+			0,
+		]);
 
 		return null;
 	}

@@ -1,12 +1,12 @@
-import * as assert from "../../assert";
-import Character from "../../character";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import Character from "../../character.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.argNR0(X.expr);
 export default class AddChara extends Statement {
@@ -24,7 +24,10 @@ export default class AddChara extends Statement {
 			assert.bigint(id, "Character id should be an integer");
 
 			const template = vm.templateMap.get(Number(id));
-			assert.cond(template != null, `Character template with id ${id} does not exist`);
+			assert.cond(
+				template != null,
+				`Character template with id ${id} does not exist`,
+			);
 
 			vm.characterList.push(new Character(vm, template));
 		}

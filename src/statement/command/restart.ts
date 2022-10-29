@@ -1,7 +1,7 @@
-import * as U from "../../parser/util";
-import Fn from "../../fn";
-import Slice from "../../slice";
-import Statement from "../index";
+import * as U from "../../parser/util.ts";
+import Fn from "../../fn.ts";
+import Slice from "../../slice.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg0R0();
 export default class Restart extends Statement {
@@ -13,9 +13,9 @@ export default class Restart extends Statement {
 
 	// eslint-disable-next-line @typescript-eslint/require-await
 	public async *run() {
-		return <const>{
+		return {
 			type: "goto",
 			label: Fn.START_OF_FN,
-		};
+		} as const;
 	}
 }

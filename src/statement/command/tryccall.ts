@@ -1,21 +1,33 @@
-import {parseThunk} from "../../parser/erb";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type Thunk from "../../thunk";
-import type VM from "../../vm";
-import Statement from "../index";
-import Call from "./call";
+import { parseThunk } from "../../parser/erb.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type Thunk from "../../thunk.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
+import Call from "./call.ts";
 
 const CATCH = /^CATCH$/i;
 const ENDCATCH = /^ENDCATCH$/i;
 export default class TryCCall extends Statement {
-	public static parse(arg: Slice, lines: Slice[], from: number): [TryCCall, number] {
+	public static parse(
+		arg: Slice,
+		lines: Slice[],
+		from: number,
+	): [TryCCall, number] {
 		let index = from + 1;
 
-		const [thenThunk, consumedT] = parseThunk(lines, index, (l) => CATCH.test(l));
+		const [thenThunk, consumedT] = parseThunk(
+			lines,
+			index,
+			(l) => CATCH.test(l),
+		);
 		index += consumedT + 1;
 
-		const [catchThunk, consumedC] = parseThunk(lines, index, (l) => ENDCATCH.test(l));
+		const [catchThunk, consumedC] = parseThunk(
+			lines,
+			index,
+			(l) => ENDCATCH.test(l),
+		);
 		index += consumedC + 1;
 
 		return [new TryCCall(arg, thenThunk, catchThunk), index - from];

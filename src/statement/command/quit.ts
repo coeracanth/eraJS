@@ -1,6 +1,6 @@
-import * as U from "../../parser/util";
-import Slice from "../../slice";
-import Statement from "../index";
+import * as U from "../../parser/util.ts";
+import Slice from "../../slice.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg0R0();
 export default class Quit extends Statement {
@@ -12,8 +12,8 @@ export default class Quit extends Statement {
 
 	// eslint-disable-next-line @typescript-eslint/require-await
 	public async *run() {
-		return <const>{
+		return {
 			type: "quit",
-		};
+		} as const;
 	}
 }

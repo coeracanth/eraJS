@@ -1,15 +1,19 @@
-import * as assert from "../assert";
-import * as E from "../error";
-import type VM from "../vm";
-import type {default as Value, Leaf} from "./index";
-import Int1DValue from "./int-1d";
+import * as assert from "../assert.ts";
+import * as E from "../error.ts";
+import type VM from "../vm.ts";
+import type { default as Value, Leaf } from "./index.ts";
+import Int1DValue from "./int-1d.ts";
 
 export default class StrChar0DValue implements Value<never> {
-	public type = <const>"string";
+	public type = "string" as const;
 	public name: string;
 	public value!: never;
 
-	public static normalizeIndex(vm: VM, name: string, index: number[]): number[] {
+	public static normalizeIndex(
+		vm: VM,
+		name: string,
+		index: number[],
+	): number[] {
 		if (index.length === 0) {
 			return [Number(vm.getValue<Int1DValue>("TARGET").get(vm, []))];
 		} else if (index.length === 1) {
@@ -50,16 +54,25 @@ export default class StrChar0DValue implements Value<never> {
 		cell.set(vm, value, realIndex.slice(1));
 	}
 
-	public rangeSet(vm: VM, value: Leaf, index: number[], _range: [number, number]) {
+	public rangeSet(
+		vm: VM,
+		value: Leaf,
+		index: number[],
+		_range: [number, number],
+	) {
 		this.set(vm, value, index);
 	}
 
 	public length(depth: number): number {
 		switch (depth) {
-			case 0: return 1;
-			case 1: return 1;
+			case 0:
+				return 1;
+			case 1:
+				return 1;
 			default:
-				throw new Error(`1D character variable doesn't have a value at depth ${depth}`);
+				throw new Error(
+					`1D character variable doesn't have a value at depth ${depth}`,
+				);
 		}
 	}
 }

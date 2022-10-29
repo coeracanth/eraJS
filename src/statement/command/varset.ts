@@ -1,16 +1,18 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import type Variable from "../expr/variable";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import type Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg4R1(X.variable, X.expr, X.expr, X.expr);
 export default class VarSet extends Statement {
-	public arg: Lazy<[Variable, Expr | undefined, Expr | undefined, Expr | undefined]>;
+	public arg: Lazy<
+		[Variable, Expr | undefined, Expr | undefined, Expr | undefined]
+	>;
 
 	public constructor(raw: Slice) {
 		super(raw);
@@ -25,7 +27,8 @@ export default class VarSet extends Statement {
 		const index = await destExpr.reduceIndex(vm);
 		const start = await startExpr?.reduce(vm) ?? 0n;
 		assert.bigint(start, "3rd argument of VARSET must be a number");
-		const end = await endExpr?.reduce(vm) ?? BigInt(dest.length(index.length));
+		const end = await endExpr?.reduce(vm) ??
+			BigInt(dest.length(index.length));
 		assert.bigint(end, "4th argument of VARSET must be a number");
 
 		if (valueExpr != null) {

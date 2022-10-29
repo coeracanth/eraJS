@@ -1,6 +1,6 @@
-import * as assert from "../../assert";
-import type VM from "../../vm";
-import type Expr from "../expr";
+import * as assert from "../../assert.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
 
 const LARGE_INT = 2n ** 60n;
 export default async function min(vm: VM, arg: Expr[]): Promise<bigint> {

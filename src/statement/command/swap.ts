@@ -1,10 +1,10 @@
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Variable from "../expr/variable";
-import Statement from "../index";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg2R2(X.variable, X.variable);
 export default class Swap extends Statement {

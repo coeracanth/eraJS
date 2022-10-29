@@ -1,12 +1,12 @@
-import * as assert from "../../assert";
-import * as C from "../../parser/const";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type Expr from "../expr";
-import type VM from "../../vm";
-import Statement, {EraGenerator} from "../index";
+import * as assert from "../../assert.ts";
+import * as C from "../../parser/const.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type Expr from "../expr/index.ts";
+import type VM from "../../vm.ts";
+import Statement, { EraGenerator } from "../index.ts";
 
 const PARSER = U.arg4R2(X.expr, X.expr, X.expr, C.charSeq());
 export default class TInputS extends Statement {
@@ -27,7 +27,11 @@ export default class TInputS extends Statement {
 		const show = await showExpr?.reduce(vm) ?? 0n;
 		assert.bigint(show, "3rd argument of TINPUTS should be a number");
 
-		const input = yield* vm.printer.tinput(false, Number(timeout), show === 1n);
+		const input = yield* vm.printer.tinput(
+			false,
+			Number(timeout),
+			show === 1n,
+		);
 
 		let value: string;
 		if (input == null) {

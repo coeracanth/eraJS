@@ -1,12 +1,12 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import type Variable from "../expr/variable";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import type Variable from "../expr/variable.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg5R1(X.variable, X.expr, X.expr, X.expr, X.expr);
 export default class VarSet extends Statement {
@@ -25,14 +25,16 @@ export default class VarSet extends Statement {
 	}
 
 	public async *run(vm: VM) {
-		const [destExpr, indexExpr, valueExpr, startExpr, endExpr] = this.arg.get();
+		const [destExpr, indexExpr, valueExpr, startExpr, endExpr] = this.arg
+			.get();
 
 		const index = await indexExpr?.reduce(vm) ?? 0n;
 		assert.bigint(index, "2nd argument of CVARSET must be a number");
 		const value = await valueExpr?.reduce(vm);
 		const start = await startExpr?.reduce(vm) ?? 0n;
 		assert.bigint(start, "4th argument of CVARSET must be a number");
-		const end = await endExpr?.reduce(vm) ?? BigInt(vm.characterList.length);
+		const end = await endExpr?.reduce(vm) ??
+			BigInt(vm.characterList.length);
 		assert.bigint(end, "5th argument of CVARSET must be a number");
 
 		for (let i = start; i < end; ++i) {

@@ -1,12 +1,15 @@
-import * as assert from "../../assert";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Variable from "../expr/variable";
+import * as assert from "../../assert.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Variable from "../expr/variable.ts";
 
 const LARGE_INT = 2n ** 60n;
 export default async function match(vm: VM, arg: Expr[]): Promise<number> {
 	const target = arg[0];
-	assert.cond(target instanceof Variable, "1st argument of MATCH should be a variable");
+	assert.cond(
+		target instanceof Variable,
+		"1st argument of MATCH should be a variable",
+	);
 	const value = await arg[1].reduce(vm);
 	const start = arg.length >= 3 ? await arg[2].reduce(vm) : 0n;
 	assert.bigint(start, "3rd argument of MATCH should be a number");

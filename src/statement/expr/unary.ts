@@ -1,6 +1,6 @@
-import * as assert from "../../assert";
-import type VM from "../../vm";
-import type Expr from "./index";
+import * as assert from "../../assert.ts";
+import type VM from "../../vm.ts";
+import type Expr from "./index.ts";
 
 type Operator = "+" | "-" | "!" | "~";
 
@@ -18,11 +18,15 @@ export default class Unary implements Expr {
 		assert.bigint(value, `Operand of ${this.op} should be an integer`);
 
 		switch (this.op) {
-			case "+": return value;
-			case "-": return -value;
-			case "!": return value === 0n ? 1n : 0n;
+			case "+":
+				return value;
+			case "-":
+				return -value;
+			case "!":
+				return value === 0n ? 1n : 0n;
 				// eslint-disable-next-line no-bitwise
-			case "~": return ~value;
+			case "~":
+				return ~value;
 		}
 	}
 }

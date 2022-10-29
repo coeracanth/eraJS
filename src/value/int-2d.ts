@@ -1,10 +1,10 @@
-import * as assert from "../assert";
-import * as E from "../error";
-import type VM from "../vm";
-import type {default as Value, Leaf} from "./index";
+import * as assert from "../assert.ts";
+import * as E from "../error.ts";
+import type VM from "../vm.ts";
+import type { default as Value, Leaf } from "./index.ts";
 
 export default class Int2DValue implements Value<bigint[][]> {
-	public type = <const>"number";
+	public type = "number" as const;
 	public name: string;
 	public value: bigint[][];
 
@@ -24,7 +24,10 @@ export default class Int2DValue implements Value<bigint[][]> {
 
 	public constructor(name: string, size?: number[]) {
 		const realSize = size ?? [100, 100];
-		assert.cond(realSize.length === 2, `${name} is not a ${realSize.length}D variable`);
+		assert.cond(
+			realSize.length === 2,
+			`${name} is not a ${realSize.length}D variable`,
+		);
 
 		this.name = name;
 		this.value = new Array(realSize[0]).fill(0).map(
@@ -61,7 +64,12 @@ export default class Int2DValue implements Value<bigint[][]> {
 	}
 
 	// NOTE: index, range are ignored (Emuera emulation)
-	public rangeSet(_vm: VM, value: Leaf, _index: number[], _range: [number, number]) {
+	public rangeSet(
+		_vm: VM,
+		value: Leaf,
+		_index: number[],
+		_range: [number, number],
+	) {
 		assert.bigint(value, "Cannot assign a string to a numeric variable");
 		for (let i = 0; i < this.value.length; ++i) {
 			for (let j = 0; j < this.value[i].length; ++j) {
@@ -72,10 +80,16 @@ export default class Int2DValue implements Value<bigint[][]> {
 
 	public length(depth: number): number {
 		switch (depth) {
-			case 0: return this.value.length;
-			case 1: return this.value[0].length;
-			case 2: return 1;
-			default: throw new Error(`2D variable doesn't have a value at depth ${depth}`);
+			case 0:
+				return this.value.length;
+			case 1:
+				return this.value[0].length;
+			case 2:
+				return 1;
+			default:
+				throw new Error(
+					`2D variable doesn't have a value at depth ${depth}`,
+				);
 		}
 	}
 }

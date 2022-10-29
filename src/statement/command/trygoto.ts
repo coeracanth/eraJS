@@ -1,10 +1,10 @@
-import * as C from "../../parser/const";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import Statement from "../index";
-import Goto from "./goto";
+import * as C from "../../parser/const.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import Statement from "../index.ts";
+import Goto from "./goto.ts";
 
 const PARSER = U.arg1R1(C.Identifier);
 export default class TryGoto extends Statement {

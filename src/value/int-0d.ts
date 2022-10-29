@@ -1,10 +1,10 @@
-import * as assert from "../assert";
-import * as E from "../error";
-import type VM from "../vm";
-import Value, {Leaf} from "./index";
+import * as assert from "../assert.ts";
+import * as E from "../error.ts";
+import type VM from "../vm.ts";
+import Value, { Leaf } from "./index.ts";
 
 export default class Int0DValue implements Value<bigint> {
-	public type = <const>"number";
+	public type = "number" as const;
 	public name: string;
 	public value: bigint;
 
@@ -41,7 +41,12 @@ export default class Int0DValue implements Value<bigint> {
 	}
 
 	// NOTE: index is ignored (Emuera emulation)
-	public rangeSet(_vm: VM, value: Leaf, _index: number[], _range: [number, number]) {
+	public rangeSet(
+		_vm: VM,
+		value: Leaf,
+		_index: number[],
+		_range: [number, number],
+	) {
 		assert.bigint(value, "Cannot assign a string to a numeric variable");
 
 		this.value = value;
@@ -49,8 +54,12 @@ export default class Int0DValue implements Value<bigint> {
 
 	public length(depth: number): number {
 		switch (depth) {
-			case 0: return 1;
-			default: throw new Error(`0D variable doesn't have a value at depth ${depth}`);
+			case 0:
+				return 1;
+			default:
+				throw new Error(
+					`0D variable doesn't have a value at depth ${depth}`,
+				);
 		}
 	}
 }

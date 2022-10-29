@@ -1,10 +1,10 @@
-import * as assert from "../assert";
-import * as E from "../error";
-import type VM from "../vm";
-import type {default as Value, Leaf} from "./index";
+import * as assert from "../assert.ts";
+import * as E from "../error.ts";
+import type VM from "../vm.ts";
+import type { default as Value, Leaf } from "./index.ts";
 
 export default class Str0DValue implements Value<string> {
-	public type = <const>"string";
+	public type = "string" as const;
 	public name: string;
 	public value: string;
 
@@ -41,7 +41,12 @@ export default class Str0DValue implements Value<string> {
 	}
 
 	// NOTE: index is ignored (Emuera emulation)
-	public rangeSet(_vm: VM, value: Leaf, _index: number[], _range: [number, number]) {
+	public rangeSet(
+		_vm: VM,
+		value: Leaf,
+		_index: number[],
+		_range: [number, number],
+	) {
 		assert.string(value, "Cannot assign a number to a string variable");
 
 		this.value = value;
@@ -49,8 +54,12 @@ export default class Str0DValue implements Value<string> {
 
 	public length(depth: number): number {
 		switch (depth) {
-			case 0: return 1;
-			default: throw new Error(`0D variable doesn't have a value at depth ${depth}`);
+			case 0:
+				return 1;
+			default:
+				throw new Error(
+					`0D variable doesn't have a value at depth ${depth}`,
+				);
 		}
 	}
 }

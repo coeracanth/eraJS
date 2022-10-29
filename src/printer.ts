@@ -1,7 +1,7 @@
-import P from "parsimmon";
+import P from "../deps/parsimmon.ts";
 
-import * as U from "./parser/util";
-import type {Chunk, EraGenerator, Output} from "./statement";
+import * as U from "./parser/util.ts";
+import type { Chunk, EraGenerator, Output } from "./statement/index.ts";
 
 export type PrintFlag = "K" | "D" | "W" | "L" | "S";
 
@@ -80,7 +80,7 @@ export default class Printer {
 	// eslint-disable-next-line @typescript-eslint/require-await
 	private async *clearTemp(): EraGenerator<void> {
 		if (this.isLineTemp) {
-			this.buffer.push({type: "clear", count: 1});
+			this.buffer.push({ type: "clear", count: 1 });
 			this.isLineTemp = false;
 		}
 	}
@@ -95,7 +95,7 @@ export default class Printer {
 
 	public async *newline(): EraGenerator<void> {
 		if (this.isLineTemp) {
-			this.buffer.push({type: "clear", count: 1});
+			this.buffer.push({ type: "clear", count: 1 });
 			this.lineCount -= 1;
 		}
 		const merged: Chunk[] = [];
@@ -129,13 +129,15 @@ export default class Printer {
 				const parsed = buttonParser.parse(chunk.text);
 				if (parsed.status && parsed.value.length > 0) {
 					for (const [core, text] of parsed.value) {
-						const valueMatch = /\[\s*(?<value>[0-9]+)\s*\]/.exec(core);
+						const valueMatch = /\[\s*(?<value>[0-9]+)\s*\]/.exec(
+							core,
+						);
 						normalized.push({
 							type: "button",
 							text,
 							value: valueMatch!.groups!.value,
 							cell: chunk.cell,
-							style: {...chunk.style},
+							style: { ...chunk.style },
 						});
 					}
 				} else {
@@ -201,7 +203,11 @@ export default class Printer {
 		}
 	}
 
-	public async *button(text: string, value: string, cell?: "LEFT" | "RIGHT"): EraGenerator<void> {
+	public async *button(
+		text: string,
+		value: string,
+		cell?: "LEFT" | "RIGHT",
+	): EraGenerator<void> {
 		yield* this.clearTemp();
 		this.chunks.push({
 			type: "button",
@@ -226,7 +232,7 @@ export default class Printer {
 
 	public async *line(value?: string): EraGenerator<void> {
 		yield* this.clearTemp();
-		this.buffer.push({type: "line", value});
+		this.buffer.push({ type: "line", value });
 
 		if (this.draw) {
 			yield* this.flush();
@@ -237,7 +243,7 @@ export default class Printer {
 
 	public async *clear(count: number): EraGenerator<void> {
 		if (count > 0) {
-			this.buffer.push({type: "clear", count});
+			this.buffer.push({ type: "clear", count });
 			this.lineCount = Math.max(0, this.lineCount - count);
 			this.isLineTemp = false;
 		}
@@ -253,16 +259,19 @@ export default class Printer {
 			yield* this.newline();
 		}
 
-		yield {type: "wait", force};
+		yield { type: "wait", force };
 	}
 
-	public async *input(numeric: boolean, nullable: boolean): EraGenerator<string | null> {
+	public async *input(
+		numeric: boolean,
+		nullable: boolean,
+	): EraGenerator<string | null> {
 		yield* this.flush();
 		if (this.chunks.length > 0) {
 			yield* this.newline();
 		}
 
-		return yield {type: "input", numeric, nullable};
+		return yield { type: "input", numeric, nullable };
 	}
 
 	public async *tinput(
@@ -275,6 +284,6 @@ export default class Printer {
 			yield* this.newline();
 		}
 
-		return yield {type: "tinput", numeric, timeout, countdown};
+		return yield { type: "tinput", numeric, timeout, countdown };
 	}
 }

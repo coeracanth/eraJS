@@ -1,16 +1,23 @@
-import * as assert from "../../assert";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import {Leaf} from "../../value";
-import type VM from "../../vm";
-import Expr from "../expr";
-import Statement from "../index";
-import Call from "./call";
+import * as assert from "../../assert.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import { Leaf } from "../../value/index.ts";
+import type VM from "../../vm.ts";
+import Expr from "../expr/index.ts";
+import Statement from "../index.ts";
+import Call from "./call.ts";
 
 export default class CallF extends Statement {
-	public static async *exec(vm: VM, target: string, argExpr: Array<Expr | undefined>) {
+	public static async *exec(
+		vm: VM,
+		target: string,
+		argExpr: Array<Expr | undefined>,
+	) {
 		const realTarget = target.toUpperCase();
-		assert.cond(vm.fnMap.has(realTarget), `Function ${realTarget} does not exist`);
+		assert.cond(
+			vm.fnMap.has(realTarget),
+			`Function ${realTarget} does not exist`,
+		);
 
 		const arg: Array<Leaf | undefined> = [];
 		for (const a of argExpr) {
@@ -18,14 +25,22 @@ export default class CallF extends Statement {
 		}
 		const result = yield* vm.fnMap.get(realTarget)!.run(vm, arg);
 		switch (result?.type) {
-			case "begin": return result;
-			case "goto": return result;
-			case "break": return result;
-			case "continue": return result;
-			case "throw": return result;
-			case "return": return null;
-			case "quit": return result;
-			case undefined: return null;
+			case "begin":
+				return result;
+			case "goto":
+				return result;
+			case "break":
+				return result;
+			case "continue":
+				return result;
+			case "throw":
+				return result;
+			case "return":
+				return null;
+			case "quit":
+				return result;
+			case undefined:
+				return null;
 		}
 	}
 

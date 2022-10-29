@@ -1,6 +1,6 @@
-import * as assert from "../../assert";
-import type VM from "../../vm";
-import type Expr from "./index";
+import * as assert from "../../assert.ts";
+import type VM from "../../vm.ts";
+import type Expr from "./index.ts";
 
 type Operator = "==" | "!=";
 
@@ -20,12 +20,17 @@ export default class Compare implements Expr {
 		const right = await this.right.reduce(vm);
 
 		if (typeof left !== typeof right) {
-			assert.cond(false, `Type of left and right operand of ${this.op} should be equal`);
+			assert.cond(
+				false,
+				`Type of left and right operand of ${this.op} should be equal`,
+			);
 		}
 
 		switch (this.op) {
-			case "==": return left === right ? 1n : 0n;
-			case "!=": return left !== right ? 1n : 0n;
+			case "==":
+				return left === right ? 1n : 0n;
+			case "!=":
+				return left !== right ? 1n : 0n;
 		}
 	}
 }

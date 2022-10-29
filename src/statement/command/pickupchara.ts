@@ -1,12 +1,12 @@
-import * as assert from "../../assert";
-import type Character from "../../character";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import type Character from "../../character.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.argNR1(X.expr, X.expr);
 export default class PickupChara extends Statement {
@@ -23,7 +23,10 @@ export default class PickupChara extends Statement {
 		const arg: bigint[] = [];
 		for (let i = 0; i < argExpr.length; ++i) {
 			const value = await argExpr[i].reduce(vm);
-			assert.bigint(value, `${i + 1}th argument of PICKUPCHARA should be a number`);
+			assert.bigint(
+				value,
+				`${i + 1}th argument of PICKUPCHARA should be a number`,
+			);
 			assert.cond(
 				value >= 0 && value < vm.characterList.length,
 				`${i + 1}th argument of PICKUPCHARA is out of range`,

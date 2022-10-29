@@ -1,4 +1,4 @@
-import type Expr from "../statement/expr";
+import type Expr from "../statement/expr/index.ts";
 
 export default class Define {
 	public name: string;

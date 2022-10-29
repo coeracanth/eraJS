@@ -1,10 +1,10 @@
-import type Define from "./define";
-import type Dim from "./dim";
-import type LocalSize from "./localsize";
-import type LocalSSize from "./localssize";
-import type Method from "./method";
-import type Order from "./order";
-import type Single from "./single";
+import type Define from "./define.ts";
+import type Dim from "./dim.ts";
+import type LocalSize from "./localsize.ts";
+import type LocalSSize from "./localssize.ts";
+import type Method from "./method.ts";
+import type Order from "./order.ts";
+import type Single from "./single.ts";
 
 type Property =
 	| Define

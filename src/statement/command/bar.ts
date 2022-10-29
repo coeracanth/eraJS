@@ -1,11 +1,11 @@
-import * as assert from "../../assert";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Statement from "../index.ts";
 
 const PARSER = U.arg3R3(X.expr, X.expr, X.expr);
 export default class Bar extends Statement {
@@ -34,7 +34,8 @@ export default class Bar extends Statement {
 		assert.bigint(length, "3rd argument of BAR must be a number");
 
 		const filled = length * value / max;
-		const text = "[" + "*".repeat(Number(filled)) + ".".repeat(Number(length - filled)) + "]";
+		const text = "[" + "*".repeat(Number(filled)) +
+			".".repeat(Number(length - filled)) + "]";
 		yield* vm.printer.print(text, new Set());
 
 		if (this.newline) {

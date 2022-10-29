@@ -1,6 +1,6 @@
-import Slice from "../slice";
-import type {Leaf} from "../value";
-import type VM from "../vm";
+import Slice from "../slice.ts";
+import type { Leaf } from "../value/index.ts";
+import type VM from "../vm.ts";
 
 export type StringChunk = {
 	type: "string";
@@ -78,15 +78,19 @@ export type Output =
 	| TInputOutput;
 
 export type Result =
-	| {type: "begin"; keyword: string}
-	| {type: "goto"; label: string}
-	| {type: "break"}
-	| {type: "continue"}
-	| {type: "throw"; value: string}
-	| {type: "return"; value: Array<Leaf>}
-	| {type: "quit"};
+	| { type: "begin"; keyword: string }
+	| { type: "goto"; label: string }
+	| { type: "break" }
+	| { type: "continue" }
+	| { type: "throw"; value: string }
+	| { type: "return"; value: Array<Leaf> }
+	| { type: "quit" };
 
-export type EraGenerator<T = Result | null> = AsyncGenerator<Output, T, string | null>;
+export type EraGenerator<T = Result | null> = AsyncGenerator<
+	Output,
+	T,
+	string | null
+>;
 
 export default class Statement {
 	public raw: Slice;

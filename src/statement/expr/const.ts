@@ -1,6 +1,6 @@
-import type {Leaf} from "../../value";
-import type VM from "../../vm";
-import type Expr from "./index";
+import type { Leaf } from "../../value/index.ts";
+import type VM from "../../vm.ts";
+import type Expr from "./index.ts";
 
 export default class Const implements Expr {
 	public value: Leaf;

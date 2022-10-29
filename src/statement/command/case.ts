@@ -1,23 +1,23 @@
-import P from "parsimmon";
+import P from "../../../deps/parsimmon.ts";
 
-import * as assert from "../../assert";
-import * as E from "../../error";
-import {parseThunk} from "../../parser/erb";
-import * as C from "../../parser/const";
-import * as X from "../../parser/expr";
-import * as U from "../../parser/util";
-import Lazy from "../../lazy";
-import Slice from "../../slice";
-import Thunk from "../../thunk";
-import type VM from "../../vm";
-import type Expr from "../expr";
-import Statement from "../index";
+import * as assert from "../../assert.ts";
+import * as E from "../../error.ts";
+import { parseThunk } from "../../parser/erb.ts";
+import * as C from "../../parser/const.ts";
+import * as X from "../../parser/expr.ts";
+import * as U from "../../parser/util.ts";
+import Lazy from "../../lazy.ts";
+import Slice from "../../slice.ts";
+import Thunk from "../../thunk.ts";
+import type VM from "../../vm.ts";
+import type Expr from "../expr/index.ts";
+import Statement from "../index.ts";
 
 type Operator = "<" | "<=" | ">" | ">=";
 type Condition =
-	| {type: "equal"; value: string | bigint}
-	| {type: "range"; from: bigint; to: bigint}
-	| {type: "compare"; op: Operator; value: bigint};
+	| { type: "equal"; value: string | bigint }
+	| { type: "range"; from: bigint; to: bigint }
+	| { type: "compare"; op: Operator; value: bigint };
 
 const CASE = /^CASE\s+/i;
 const CASEELSE = /^CASEELSE$/i;
@@ -32,13 +32,17 @@ const PARSER_BRANCH = U.argNR0(P.alt(
 	P.seqMap(
 		P.regex(/IS/i).then(U.alt("<=", "<", ">=", ">").trim(C.WS0)),
 		X.expr,
-		(op, value) => ({type: "compare", op, value}),
+		(op, value) => ({ type: "compare", op, value }),
 	),
-	C.Int.map((value) => ({type: "equal", value: BigInt(value)})),
-	C.Str.map((value) => ({type: "equal", value})),
+	C.Int.map((value) => ({ type: "equal", value: BigInt(value) })),
+	C.Str.map((value) => ({ type: "equal", value })),
 ));
 export default class Case extends Statement {
-	public static parse(arg: Slice, lines: Slice[], from: number): [Case, number] {
+	public static parse(
+		arg: Slice,
+		lines: Slice[],
+		from: number,
+	): [Case, number] {
 		let index = from + 1;
 		const branch: Array<[Slice, Thunk]> = [];
 		let def = new Thunk([]);
@@ -53,12 +57,17 @@ export default class Case extends Statement {
 				const [thunk, consumed] = parseThunk(
 					lines,
 					index,
-					(l) => CASE.test(l) || CASEELSE.test(l) || ENDSELECT.test(l),
+					(l) =>
+						CASE.test(l) || CASEELSE.test(l) || ENDSELECT.test(l),
 				);
 				branch.push([current.slice("CASE".length), thunk]);
 				index += consumed;
 			} else if (CASEELSE.test(current.get())) {
-				const [thunk, consumed] = parseThunk(lines, index, (l) => ENDSELECT.test(l));
+				const [thunk, consumed] = parseThunk(
+					lines,
+					index,
+					(l) => ENDSELECT.test(l),
+				);
 				def = thunk;
 				index += consumed;
 			} else if (ENDSELECT.test(current.get())) {
@@ -77,7 +86,9 @@ export default class Case extends Statement {
 		super(raw);
 
 		this.arg = new Lazy(raw, PARSER_EXPR);
-		this.branch = branch.map(([cond, thunk]) => [new Lazy(cond, PARSER_BRANCH), thunk]);
+		this.branch = branch.map((
+			[cond, thunk],
+		) => [new Lazy(cond, PARSER_BRANCH), thunk]);
 		this.def = def;
 	}
 
@@ -95,15 +106,24 @@ export default class Case extends Statement {
 		for (const [cond, expr] of this.branch) {
 			const satisfied = cond.get().some((c) => {
 				switch (c.type) {
-					case "equal": return c.value === value;
-					case "range": return c.from <= value && value <= c.to;
+					case "equal":
+						return c.value === value;
+					case "range":
+						return c.from <= value && value <= c.to;
 					case "compare": {
-						assert.bigint(value, "CASE IS ... should be used for an integer value");
+						assert.bigint(
+							value,
+							"CASE IS ... should be used for an integer value",
+						);
 						switch (c.op) {
-							case "<": return value < c.value;
-							case "<=": return value <= c.value;
-							case ">": return value > c.value;
-							case ">=": return value >= c.value;
+							case "<":
+								return value < c.value;
+							case "<=":
+								return value <= c.value;
+							case ">":
+								return value > c.value;
+							case ">=":
+								return value >= c.value;
 						}
 					}
 				}

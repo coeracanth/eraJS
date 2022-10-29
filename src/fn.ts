@@ -1,11 +1,11 @@
-import * as assert from "./assert";
-import type Property from "./property";
-import Order from "./property/order";
-import type {EraGenerator} from "./statement";
-import Variable from "./statement/expr/variable";
-import Thunk from "./thunk";
-import {Leaf} from "./value";
-import type VM from "./vm";
+import * as assert from "./assert.ts";
+import type Property from "./property/index.ts";
+import Order from "./property/order.ts";
+import type { EraGenerator } from "./statement/index.ts";
+import Variable from "./statement/expr/variable.ts";
+import Thunk from "./thunk.ts";
+import { Leaf } from "./value/index.ts";
+import type VM from "./vm.ts";
 
 export default class Fn {
 	public static START_OF_FN = "@@START";
@@ -15,7 +15,12 @@ export default class Fn {
 	public property: Property[];
 	public thunk: Thunk;
 
-	public constructor(name: string, arg: Fn["arg"], property: Property[], thunk: Thunk) {
+	public constructor(
+		name: string,
+		arg: Fn["arg"],
+		property: Property[],
+		thunk: Thunk,
+	) {
 		this.name = name;
 		this.arg = arg;
 		this.thunk = thunk;
@@ -25,14 +30,21 @@ export default class Fn {
 	}
 
 	public isFirst(): boolean {
-		return this.property.some((p) => p instanceof Order && p.order === "PRI");
+		return this.property.some((p) =>
+			p instanceof Order && p.order === "PRI"
+		);
 	}
 
 	public isLast(): boolean {
-		return this.property.some((p) => p instanceof Order && p.order === "LATER");
+		return this.property.some((p) =>
+			p instanceof Order && p.order === "LATER"
+		);
 	}
 
-	public async *run(vm: VM, arg: Array<string | bigint | undefined>): EraGenerator {
+	public async *run(
+		vm: VM,
+		arg: Array<string | bigint | undefined>,
+	): EraGenerator {
 		await vm.pushContext(this);
 
 		for (let i = 0; i < this.arg.length; ++i) {
@@ -53,7 +65,10 @@ export default class Fn {
 				} else {
 					value = 0n;
 				}
-				assert.bigint(value, "Value for number argument must be a number");
+				assert.bigint(
+					value,
+					"Value for number argument must be a number",
+				);
 				dest.set(vm, value, index);
 			} else {
 				let value: Leaf;
@@ -69,7 +84,10 @@ export default class Fn {
 				} else {
 					value = "";
 				}
-				assert.string(value, "Value for string argument must be a string");
+				assert.string(
+					value,
+					"Value for string argument must be a string",
+				);
 				dest.set(vm, value, index);
 			}
 		}
